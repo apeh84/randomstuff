@@ -10,7 +10,7 @@ led1 = 10
 led2 = 22
 led3 = 27
 
-but="<form method=\"get\" action=\"/on\"><button type=\"submit\">on gagz</button></form><form method=\"get\" action=\"/off\"><button type=\"submit\">off gagz</button></form>"
+but="<form method=\"get\" action=\"/on\"><button type=\"submit\">on gagz</button></form><form method=\"get\" action=\"/off\"><button type=\"submit\">off gagz</button></form><form method=\"get\" action=\"/red\"><button type=\"submit\">red</button></form><form method=\"get\" action=\"/blue\"><button type=\"submit\">blue</button></form><form method=\"get\" action=\"/green\"><button type=\"submit\">green</button></form>"
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(led1, GPIO.OUT)
@@ -30,12 +30,36 @@ def simple_app(env, start_response):
         GPIO.output(led3,False)
        
         return(but)
+
     elif env["PATH_INFO"] == "/off":
         print("user asked for /off")
         GPIO.output(led1, True)
         GPIO.output(led2, True)
         GPIO.output(led3, True)
         return(but)
+
+    elif env["PATH_INFO"] == "/blue":
+        print("user asked for /blue")
+        GPIO.output(led1, True)
+        GPIO.output(led2, True)
+        GPIO.output(led3, False)
+        return(but)
+
+    elif env["PATH_INFO"] == "/red":
+        print("user asked for /red")
+        GPIO.output(led1, False)
+        GPIO.output(led2, True)
+        GPIO.output(led3, True)
+        return(but)
+
+    elif env["PATH_INFO"] == "/green":
+        print("user asked for /green")
+        GPIO.output(led1, True)
+        GPIO.output(led2, False)
+        GPIO.output(led3, True)
+        return(but)
+
+
     else:
         GPIO.output(led1, True)
 	GPIO.output(led2, True)
